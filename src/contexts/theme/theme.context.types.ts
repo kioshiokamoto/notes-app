@@ -15,4 +15,4 @@ export interface ThemeProviderValue {
 
 export type ThemeTypes = keyof typeof themes;
 
-export type Theme = typeof themes;
+export type Theme = typeof themes["light"];
