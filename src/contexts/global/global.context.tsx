@@ -14,6 +14,44 @@ export const GlobalContext = createContext<GlobalProviderValue>();
 const GlobalProvider: React.FC<Props> = (props) => {
   const [notes, setNotes] = useState<Note[]>();
 
+  const createNote = (payload: Note) => {
+    setNotes((prev) => {
+      if (prev) {
+        return [...prev, payload];
+      }
+
+      return [payload];
+    });
+  };
+
+  const updateNote = (
+    id: string,
+    payload: Partial<Pick<Note, "description" | "status">>
+  ) => {
+    setNotes((prev) => {
+      const updatedNotes = prev?.map((prevNote) => {
+        if (prevNote.id === id) {
+          return {
+            ...prevNote,
+            ...payload,
+          };
+        }
+
+        return prevNote;
+      });
+
+      return updatedNotes;
+    });
+  };
+
+  const deleteNote = (id: string) => {
+    setNotes((prev) => {
+      const updatedNotes = prev?.filter((prevNote) => prevNote.id !== id);
+
+      return updatedNotes;
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const storagedNotes = await AsyncStorage.getItem(NOTES);
@@ -25,8 +63,15 @@ const GlobalProvider: React.FC<Props> = (props) => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      if (!notes) return;
+      await AsyncStorage.setItem(NOTES, JSON.stringify(notes));
+    })();
+  }, [notes]);
+
   const value: GlobalProviderValue = useMemo(() => {
-    return { notes, setNotes };
+    return { notes, setNotes, createNote, updateNote, deleteNote };
   }, [notes, setNotes]);
 
   return (

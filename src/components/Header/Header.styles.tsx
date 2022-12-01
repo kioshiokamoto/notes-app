@@ -6,6 +6,7 @@ const styles = EStyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   title: {
     fontFamily: "$fonts.primary",

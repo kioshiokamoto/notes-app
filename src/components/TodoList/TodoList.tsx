@@ -1,16 +1,20 @@
-import React from "react";
-import { View, Text, FlatList, useWindowDimensions } from "react-native";
+import React, { useCallback } from "react";
+import { View, Text, FlatList } from "react-native";
+import { useWindowDimensions, ListRenderItem } from "react-native";
 
 import styles from "./TodoList.styles";
 import { TodoListProps as Props } from "./TodoList.types";
 
 import EmptySVG from "assets/images/empty.svg";
 import useGlobal from "contexts/global/global.hooks";
+import { Note } from "types/global.types";
+import Todo from "./Todo/Todo";
 
 const TodoList: React.FC<Props> = (props) => {
   const { width } = useWindowDimensions();
   const { notes } = useGlobal();
   const isTablet = width > 425;
+  const filteredNotes = notes?.filter((note) => note.status !== "DELETED");
 
   const renderEmpty = () => {
     return (
@@ -21,13 +25,17 @@ const TodoList: React.FC<Props> = (props) => {
     );
   };
 
-  // TODO: to render notes
-  // const renderItem = useCallback<ListRenderItem<Todo>>(item=> {},[])
+  const renderItem = useCallback<ListRenderItem<Note>>((element) => {
+    const { item } = element ?? {};
+
+    return <Todo note={item} />;
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={notes}
-        renderItem={(item) => <></>}
+        data={filteredNotes}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}

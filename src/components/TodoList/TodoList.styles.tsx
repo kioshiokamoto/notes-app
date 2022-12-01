@@ -3,6 +3,7 @@ import EStyleSheet from "react-native-extended-stylesheet";
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 16,
     paddingHorizontal: 16,
   },
   emptyContainer: {

@@ -11,4 +11,10 @@ export interface GlobalProviderProps {
 export interface GlobalProviderValue {
   notes: Note[] | undefined;
   setNotes: React.Dispatch<React.SetStateAction<Note[] | undefined>>;
+  createNote: (payload: Note) => void;
+  updateNote: (
+    id: string,
+    payload: Partial<Pick<Note, "description" | "status">>
+  ) => void;
+  deleteNote: (id: string) => void;
 }

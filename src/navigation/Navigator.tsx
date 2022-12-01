@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { Text } from "react-native";
 
 import HomeScreen from "screens/Home/Home.screen";
+import NoteScreen from "screens/Note/Note.screen";
 import { navigationRef, Stack } from "./Navigator.helpers";
 import { NavigatorProps as Props } from "./Navigator.types";
 
@@ -19,7 +20,7 @@ const Navigator: React.FC<Props> = (props) => {
 
   const transparentModals = (
     <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
-      <></>
+      <Stack.Screen name="NoteScreen" component={NoteScreen} />
     </Stack.Group>
   );
 
