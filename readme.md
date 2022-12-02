@@ -39,3 +39,9 @@ Start Client
   # To open on Android: Press "a"
   # To open on iOS: Press "i"
 ```
+
+## Run tests
+
+```bash
+  yarn test
+```

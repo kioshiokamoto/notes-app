@@ -5,6 +5,6 @@ import Todo from "./Todo";
 
 describe("Todo", () => {
   it("renders with default props", () => {
-    render(<Todo />);
+    render(<Todo note={{ description: "", id: "", status: "COMPLETED" }} />);
   });
 });
