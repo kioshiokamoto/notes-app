@@ -8,9 +8,9 @@ A simple notes app!
 
 ## Screenshots
 
-![Screen Multiplatform](https://github.com/kioshiokamoto/)
-![Screen Multiplatform](https://github.com/kioshiokamoto/)
-![Screen Multiplatform](https://github.com/kioshiokamoto/)
+![Screen Multiplatform](https://github.com/kioshiokamoto/notes-app/blob/main/screenshots/main.jpg)
+![Screen Multiplatform](https://github.com/kioshiokamoto/notes-app/blob/main/screenshots/newNote.jpg)
+![Screen Multiplatform](https://github.com/kioshiokamoto/notes-app/blob/main/screenshots/filterStatus.jpg)
 
 ## Run Locally
 
