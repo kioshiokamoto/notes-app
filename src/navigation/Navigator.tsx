@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { useRef } from "react";
 import { Text } from "react-native";
 
+import FilterScreen from "screens/Filter/Filter.screen";
 import HomeScreen from "screens/Home/Home.screen";
 import NoteScreen from "screens/Note/Note.screen";
 import { navigationRef, Stack } from "./Navigator.helpers";
@@ -21,6 +22,7 @@ const Navigator: React.FC<Props> = (props) => {
   const transparentModals = (
     <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
       <Stack.Screen name="NoteScreen" component={NoteScreen} />
+      <Stack.Screen name="FilterScreen" component={FilterScreen} />
     </Stack.Group>
   );
 

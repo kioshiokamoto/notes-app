@@ -5,3 +5,11 @@ export interface Note {
   status: Status;
   description: string;
 }
+
+export type NoteFilterStatus = Status | "ALL";
+
+export interface NoteFilterStatusGroup {
+  id: number;
+  status: NoteFilterStatus;
+  name: string;
+}

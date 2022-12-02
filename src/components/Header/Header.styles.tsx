@@ -12,10 +12,19 @@ const styles = EStyleSheet.create({
     fontFamily: "$fonts.primary",
     fontSize: 30,
   },
-  button: {
+  hamburger: {
     borderRadius: 100,
     backgroundColor: "$palette.primary",
     padding: 12,
+    marginRight: 8,
+  },
+  plus: {
+    borderRadius: 100,
+    backgroundColor: "$palette.primary",
+    padding: 12,
+  },
+  buttons: {
+    flexDirection: "row",
   },
 });
 

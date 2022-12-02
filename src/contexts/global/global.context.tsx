@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { GlobalProviderProps as Props } from "./global.context.types";
 import { GlobalProviderValue } from "./global.context.types";
-import { Note } from "types/global.types";
+import { Note, NoteFilterStatus, Status } from "types/global.types";
 import CONSTANTS from "config/constants";
 
 const { NOTES } = CONSTANTS.STORAGE;
@@ -13,6 +13,8 @@ export const GlobalContext = createContext<GlobalProviderValue>();
 
 const GlobalProvider: React.FC<Props> = (props) => {
   const [notes, setNotes] = useState<Note[]>();
+  const [filterByStatus, setFilterByStatus] = useState<NoteFilterStatus>("ALL");
+  const [filterByText, setFilterByText] = useState("");
 
   const createNote = (payload: Note) => {
     setNotes((prev) => {
@@ -44,9 +46,30 @@ const GlobalProvider: React.FC<Props> = (props) => {
     });
   };
 
-  const deleteNote = (id: string) => {
+  const deleteNoteDefinitely = (id: string) => {
     setNotes((prev) => {
       const updatedNotes = prev?.filter((prevNote) => prevNote.id !== id);
+
+      return updatedNotes;
+    });
+  };
+
+  const restoreNote = (id: string) => {
+    updateNote(id, { status: "LISTED" });
+  };
+
+  const deleteNote = (id: string) => {
+    setNotes((prev) => {
+      const updatedNotes = prev?.map((prevNote) => {
+        if (prevNote.id === id) {
+          return {
+            ...prevNote,
+            status: "DELETED" as Status,
+          };
+        }
+
+        return prevNote;
+      });
 
       return updatedNotes;
     });
@@ -71,8 +94,27 @@ const GlobalProvider: React.FC<Props> = (props) => {
   }, [notes]);
 
   const value: GlobalProviderValue = useMemo(() => {
-    return { notes, setNotes, createNote, updateNote, deleteNote };
-  }, [notes, setNotes]);
+    return {
+      notes,
+      setNotes,
+      filterByStatus,
+      setFilterByStatus,
+      filterByText,
+      setFilterByText,
+      createNote,
+      updateNote,
+      deleteNote,
+      deleteNoteDefinitely,
+      restoreNote,
+    };
+  }, [
+    notes,
+    setNotes,
+    filterByStatus,
+    setFilterByStatus,
+    filterByText,
+    setFilterByText,
+  ]);
 
   return (
     <GlobalContext.Provider value={value}>

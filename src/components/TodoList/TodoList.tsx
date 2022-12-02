@@ -12,9 +12,18 @@ import Todo from "./Todo/Todo";
 
 const TodoList: React.FC<Props> = (props) => {
   const { width } = useWindowDimensions();
-  const { notes } = useGlobal();
+  const { notes, filterByStatus, filterByText } = useGlobal();
   const isTablet = width > 425;
-  const filteredNotes = notes?.filter((note) => note.status !== "DELETED");
+
+  const filteredNotesByStatus = notes?.filter(
+    (note) =>
+      note.status === filterByStatus ||
+      (filterByStatus === "ALL" && note.status !== "DELETED")
+  );
+
+  const filteredNotes = filteredNotesByStatus?.filter((note) =>
+    note.description.includes(filterByText)
+  );
 
   const renderEmpty = () => {
     return (

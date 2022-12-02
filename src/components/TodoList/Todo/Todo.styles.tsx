@@ -7,6 +7,8 @@ const styles = EStyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "$palette.h0s0l74",
   },
   content: {
     flexDirection: "row",
@@ -49,6 +51,17 @@ const styles = EStyleSheet.create({
     fontFamily: "$fonts.primary",
     fontSize: 16,
     color: "$palette.h2s60l60",
+  },
+  restoreButton: {
+    marginRight: 12,
+  },
+  restore: {
+    fontFamily: "$fonts.primary",
+    fontSize: 16,
+    color: "$palette.h248s61l65",
+  },
+  controlButtons: {
+    flexDirection: "row",
   },
 });
 

@@ -11,9 +11,11 @@ import { TodoProps as Props } from "./Todo.types";
 const Todo: React.FC<Props> = (props) => {
   const { note } = props;
   const { description, id, status } = note;
-  const { navigate, goBack } = useNavigation<RootNavigatorPropList>();
-  const { updateNote, deleteNote } = useGlobal();
+  const { navigate } = useNavigation<RootNavigatorPropList>();
+  const { updateNote, deleteNote, deleteNoteDefinitely } = useGlobal();
+  const { restoreNote } = useGlobal();
   const isCompleted = status === "COMPLETED";
+  const isDeleted = status === "DELETED";
   const checkStyle = isCompleted
     ? [styles.out, styles.completedOut]
     : styles.out;
@@ -24,6 +26,14 @@ const Todo: React.FC<Props> = (props) => {
 
   const handleDelete = () => {
     deleteNote(id);
+  };
+
+  const handleRemoveNote = () => {
+    deleteNoteDefinitely(id);
+  };
+
+  const handleRestore = () => {
+    restoreNote(id);
   };
 
   const handleEdit = () => {
@@ -39,12 +49,30 @@ const Todo: React.FC<Props> = (props) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleEdit}>
-          <Text style={styles.description}>{description}</Text>
+          <Text
+            style={[styles.description, { maxWidth: isDeleted ? 180 : 250 }]}
+          >
+            {description}
+          </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleDelete}>
-        <Text style={styles.delete}>Delete</Text>
-      </TouchableOpacity>
+      {isDeleted ? (
+        <View style={styles.controlButtons}>
+          <TouchableOpacity
+            onPress={handleRestore}
+            style={styles.restoreButton}
+          >
+            <Text style={styles.restore}>Restore</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleRemoveNote}>
+            <Text style={styles.delete}>Remove</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <TouchableOpacity onPress={handleDelete}>
+          <Text style={styles.delete}>Delete</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

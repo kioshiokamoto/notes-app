@@ -55,7 +55,7 @@ const NoteEditor: React.FC<Props> = (props) => {
         <View style={styles.container}>
           <View style={styles.titleContainer}>
             <TouchableOpacity style={styles.goBack} onPress={goBack}>
-              <BackSVG width={15} height={12} fill="red" />
+              <BackSVG width={15} height={12} />
             </TouchableOpacity>
             <Text style={styles.title}>
               {editableNoteId ? "Update a note" : "Add a new note"}
